@@ -11,7 +11,7 @@ import reducers from './redux/reducers'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { Provider } from 'react-redux'
 import Router from './router'
-
+import Offer1Theme from './config/theme'
 // middlewards
 const history = createBrowserHistory()
 const sagaMiddleware = createSagaMiddleware()
@@ -22,7 +22,9 @@ const store = createStore(reducers(history), composeWithDevTools(applyMiddleware
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history} />
+    <Offer1Theme>
+      <Router history={history} />
+    </Offer1Theme>
   </Provider>,
   document.getElementById('root'),
 )
