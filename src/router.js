@@ -3,6 +3,7 @@ import { Route, Redirect, Switch } from 'react-router-dom'
 import { ConnectedRouter } from 'connected-react-router'
 import { CSSTransition, SwitchTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
+import Layout from './layouts'
 
 const routes = [
   {
@@ -29,50 +30,52 @@ const mapStateToProps = ({ settings }) => ({
 const Router = ({ history, routerAnimation }) => {
   return (
     <ConnectedRouter history={history}>
-      <Route
-        render={(state) => {
-          const { location } = state
-          return (
-            <SwitchTransition>
-              <CSSTransition
-                key={location.pathname}
-                appear
-                classNames={routerAnimation}
-                timeout={routerAnimation === 'none' ? 0 : 300}
-              >
-                <Switch location={location}>
-                  <Route
-                    exact
-                    path="/"
-                    render={() => {
-                      return <Redirect to="/list" />
-                    }}
-                  />
-                  {routes.map(({ path, Component, exact }) => {
-                    return (
-                      <Route
-                        path={path}
-                        key={path}
-                        exact={exact}
-                        render={() => {
-                          return (
-                            <div className={routerAnimation}>
-                              <Suspense fallback={null}>
-                                <Component />
-                              </Suspense>
-                            </div>
-                          )
-                        }}
-                      />
-                    )
-                  })}
-                  <Redirect to="/page/404" />
-                </Switch>
-              </CSSTransition>
-            </SwitchTransition>
-          )
-        }}
-      />
+      <Layout>
+        <Route
+          render={(state) => {
+            const { location } = state
+            return (
+              <SwitchTransition>
+                <CSSTransition
+                  key={location.pathname}
+                  appear
+                  classNames={routerAnimation}
+                  timeout={routerAnimation === 'none' ? 0 : 300}
+                >
+                  <Switch location={location}>
+                    <Route
+                      exact
+                      path="/"
+                      render={() => {
+                        return <Redirect to="/list" />
+                      }}
+                    />
+                    {routes.map(({ path, Component, exact }) => {
+                      return (
+                        <Route
+                          path={path}
+                          key={path}
+                          exact={exact}
+                          render={() => {
+                            return (
+                              <div className={routerAnimation}>
+                                <Suspense fallback={null}>
+                                  <Component />
+                                </Suspense>
+                              </div>
+                            )
+                          }}
+                        />
+                      )
+                    })}
+                    <Redirect to="/page/404" />
+                  </Switch>
+                </CSSTransition>
+              </SwitchTransition>
+            )
+          }}
+        />
+      </Layout>
     </ConnectedRouter>
   )
 }
