@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     '& .title': {},
   },
   commonInfoContainer: {
-    padding: theme.spacing(2),
+    // padding: theme.spacing(2),
     backgroundColor: theme.palette.grey[200],
   },
   infoPanel: {
@@ -49,10 +49,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '0.6em',
     borderBottom: '1px solid rgba(0,0,0,.1)',
     '& .buildinfo_label': {
-      color: 'rgba(0,0,0,.6)',
+      color: theme.palette.secondary.light,
     },
     '& .buildinfo_info': {
-      color: 'rgba(0,0,0,.8)',
+      color: theme.palette.secondary.dark,
     },
   },
   infoRowNoBorder: {
@@ -60,10 +60,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     marginBottom: '0.6em',
     '& .buildinfo_label': {
-      color: 'rgba(0,0,0,.6)',
+      color: theme.palette.secondary.light,
     },
     '& .buildinfo_info': {
-      color: 'rgba(0,0,0,.8)',
+      color: theme.palette.secondary.dark,
     },
   },
 }))
@@ -79,7 +79,7 @@ export const InfoRow = ({ data, border = true }) => {
           </Typography>
         </div>
         <div className="col-md-8 col-sm-12">
-          <Typography variant="body2" className="buildinfo_info"></Typography>
+          <Typography variant="caption" className="buildinfo_info"></Typography>
         </div>
       </div>
     )
@@ -94,7 +94,7 @@ export const InfoRow = ({ data, border = true }) => {
           </Typography>
         </div>
         <div className="col-md-8 col-sm-12 pull-left">
-          <Typography variant="body2" className="buildinfo_info">
+          <Typography variant="caption" className="buildinfo_info">
             {data.info}
           </Typography>
         </div>
@@ -113,7 +113,7 @@ export const InfoRow = ({ data, border = true }) => {
       <div className="col-md-4 col-sm-12 pull-left">
         <div className="buildinfo_info">
           {infos.map((subInfo) => (
-            <Typography variant="body2">{subInfo}</Typography>
+            <Typography variant="caption">{subInfo}</Typography>
           ))}
         </div>
       </div>
@@ -126,7 +126,7 @@ export const BuildingInfo = ({ building }) => {
   const addressInfos = [
     {
       label: 'Address',
-      info: building.property.address.addressLine1 | building.property.address.addressLine,
+      info: building.property.address.addressLine1,
     },
     {
       label: 'City',
@@ -228,16 +228,6 @@ export const BuildingInfo = ({ building }) => {
             <InfoRow data={info} />
           ))}
         </div>
-        <Divider />
-        <div className={classes.infoPanel}>
-          <Typography variant="h6" className="title">
-            Properties
-          </Typography>
-          {propertyInfos.map((info) => (
-            <InfoRow data={info} />
-          ))}
-        </div>
-        <Divider />
         <div className={classes.infoPanel}>
           <Typography variant="h6" className="title">
             Owner

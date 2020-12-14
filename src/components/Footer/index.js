@@ -18,8 +18,14 @@ const Copyright = () => {
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.primary.dark,
     padding: theme.spacing(6),
+    '& .title': {
+      color: theme.palette.background.default,
+    },
+    '& p': {
+      color: theme.palette.secondary.light,
+    },
   },
 }))
 
@@ -28,11 +34,11 @@ const Footer = () => {
   return (
     <React.Fragment>
       <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
+        <Typography variant="h6" class="title">
+          Offer1 Real Estate
         </Typography>
-        <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-          Something here to give the footer a purpose!
+        <Typography variant="subtitle1" color="textSecondary" component="p">
+          This is testing project for Offer1
         </Typography>
         <Copyright />
       </footer>

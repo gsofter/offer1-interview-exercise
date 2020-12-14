@@ -10,7 +10,8 @@ import red from '@material-ui/core/colors/cyan'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    borderBottom: '1px solid rgba(0,0,0,.1)',
+    borderBottom: '1px solid',
+    borderBottomColor: theme.palette.primary.light,
     backgroundColor: theme.palette.background.paper,
     '& a': {
       textDecoration: 'none',

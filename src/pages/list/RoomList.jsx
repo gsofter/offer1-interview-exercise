@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     width: '100%',
     flexDirection: 'row',
+    marginBottom: theme.spacing(5),
   },
   searchFilter: {
     display: 'flex',

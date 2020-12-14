@@ -12,11 +12,10 @@ import PhotoSizeSelectSmallIcon from '@material-ui/icons/PhotoSizeSelectSmall'
 import BathtubIcon from '@material-ui/icons/Bathtub'
 import PhoneInTalkIcon from '@material-ui/icons/PhoneInTalk'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
-import cx from 'classnames'
 
 const useStyles = makeStyles((theme) => ({
-  mainGrid: {
-    marginTop: theme.spacing(3),
+  rootContainer: {
+    marginTop: theme.spacing(5),
   },
   buildingHeader: {},
   square: {
@@ -51,7 +50,7 @@ export default function RoomDetail({ building, loading = false, ...props }) {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" className={classes.rootContainer}>
         <div className="row d-flex flex-row">
           <div className="col-sm-12 col-md-8">
             <BuildingImage image={building.property.primaryImageUrl || ''} />
@@ -104,20 +103,6 @@ export default function RoomDetail({ building, loading = false, ...props }) {
           </div>
         </div>
         <BuildingInfo building={building} />
-        {/* <Grid container spacing={4}>
-          {featuredPosts.map((post) => (
-            <FeaturedPost key={post.title} post={post} />
-          ))}
-        </Grid>
-        <Grid container spacing={5} className={classes.mainGrid}>
-          <Main title="From the firehose" posts={posts} />
-          <Sidebar
-            title={sidebar.title}
-            description={sidebar.description}
-            archives={sidebar.archives}
-            social={sidebar.social}
-          />
-        </Grid> */}
       </Container>
     </React.Fragment>
   )

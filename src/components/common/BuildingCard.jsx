@@ -38,7 +38,7 @@ export const BuildingCard = ({ building }) => {
   const classes = useStyles()
   return (
     <Card className={classes.card}>
-      <CardActionArea>
+      <CardActionArea href={`/room/${building.id}`}>
         <CardMedia
           className={classes.cardMedia}
           image={building.property.primaryImageUrl}
