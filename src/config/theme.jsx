@@ -3,7 +3,7 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 
 const theme = createMuiTheme({
   type: 'light',
-  shadows: ['none'],
+  //   shadows: ['none'],
   sidebarWidth: 260,
   sidebarMobileHeight: 90,
 })
