@@ -3,7 +3,6 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import purple from '@material-ui/core/colors/purple'
 import cyan from '@material-ui/core/colors/cyan'
 import grey from '@material-ui/core/colors/grey'
-import { colors } from '@material-ui/core'
 const light = purple[700] // #f44336
 const primary = purple[800] // #f44336
 const dark = purple[900] // #f44336
@@ -41,7 +40,10 @@ const theme = createMuiTheme({
   typography: {
     htmlFontSize: 14,
     button: {
-      fontSize: '0.7em',
+      fontSize: '0.7rem',
+    },
+    body2: {
+      fontSize: '0.8rem',
     },
     h6: {
       fontSize: '1.1rem',

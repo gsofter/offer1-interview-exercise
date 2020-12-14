@@ -17,10 +17,15 @@ const Layout = ({ user, children, location }) => {
 
   const getLayout = () => {
     // TODO: check authentication
+    if (/^\/auth(?=\/|$)/i.test(pathname)) {
+      return 'auth'
+    }
     return 'main'
   }
+
   const Container = Layouts[getLayout()]
   const BootstrappedLayout = () => {
+    if (!user.authorized && getLayout() !== 'auth') return <Redirect to="/auth/login" />
     return <Container>{children}</Container>
   }
   return (

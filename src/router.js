@@ -7,6 +7,11 @@ import Layout from './layouts'
 
 const routes = [
   {
+    path: '/auth/login',
+    Component: lazy(() => import('./pages/auth')),
+    exact: true,
+  },
+  {
     path: '/list/',
     Component: lazy(() => import('./pages/list')),
     exact: true,

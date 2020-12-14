@@ -1,4 +1,6 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import AppBar from '@material-ui/core/AppBar'
 import ApartmentIcon from '@material-ui/icons/Apartment'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -24,27 +26,47 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
   },
+  toolBar: {
+    flexWrap: 'wrap',
+  },
+
+  title: {
+    flexGrow: 1,
+    color: theme.palette.primary.dark,
+    fontWeight: 600,
+  },
 }))
 
-const Header = ({ ...props }) => {
+const mapStateToProps = (state) => ({ ...state })
+const Header = (props) => {
   const classes = useStyles()
-
+  console.log('props=> ', props)
+  const { user } = props
   return (
     <React.Fragment>
       <CssBaseline />
       <AppBar position="relative" className={classes.appBar}>
-        <Toolbar>
+        <Toolbar className={classes.toolBar}>
           <Button href="/" className={classes.homeLink}>
             <ApartmentIcon className={classes.icon} />{' '}
           </Button>
-          <Typography variant="h6" color="inherit" noWrap className={classes.homeLink}>
+          <Typography variant="h5" color="inherit" noWrap className={classes.title}>
             {/* TODO: should display Name from contants list */}
             Offer1 Real Estate
           </Typography>
+          {user.authorized ? (
+            <Button href="#" color="primary" variant="outlined" className={classes.link}>
+              Logout
+            </Button>
+          ) : (
+            <Button href="#" color="primary" variant="outlined" className={classes.link}>
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </React.Fragment>
   )
 }
 
-export default Header
+export default withRouter(connect(mapStateToProps)(Header))
