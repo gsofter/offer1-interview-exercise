@@ -188,7 +188,7 @@ const RoomList = ({ buildings }) => {
                     />
                     <CardContent className={classes.cardContent}>
                       <Typography gutterBottom variant="body1" component="h5">
-                        {house.escrowCompany.name}
+                        {house.titleCompany.name}
                       </Typography>
                       <Typography variant="body2">{house.property.description}</Typography>
                     </CardContent>

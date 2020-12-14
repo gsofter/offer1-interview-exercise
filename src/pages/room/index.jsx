@@ -1,7 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import RoomDetail from './RoomDetail'
+import { withRouter, useParams } from 'react-router-dom'
+import * as api from '../../services/api'
 
-const RoomDetail = (props) => {
-  return <div> This is RoomDetail screen </div>
+const RoomDetailWrapper = ({ props }) => {
+  const { roomId } = useParams()
+  const [building, setBuilding] = useState(null)
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await api.getBuilding(roomId)
+      setBuilding(res)
+      console.log('res => ', res)
+    }
+
+    fetch()
+  }, [])
+  return building === null || building === undefined ? '' : <RoomDetail building={building} />
 }
 
-export default RoomDetail
+export default RoomDetailWrapper

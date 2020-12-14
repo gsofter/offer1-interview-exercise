@@ -9,7 +9,6 @@ const RoomListWrapper = () => {
     const fetch = async () => {
       setLoading(true)
       const res = await api.getAllBuildings()
-      console.log('res =>', res)
       setBuildings(res)
       setLoading(false)
     }

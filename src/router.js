@@ -12,7 +12,7 @@ const routes = [
     exact: true,
   },
   {
-    path: '/room/:id',
+    path: '/room/:roomId',
     Component: lazy(() => import('./pages/room')),
     exact: true,
   },
