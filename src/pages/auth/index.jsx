@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
+import { connect } from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,8 +34,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function SignIn() {
+const mapStateToProps = (state) => ({ ...state })
+const SignIn = ({ dispatch }) => {
   const classes = useStyles()
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    console.log('login => ', e.target.email.value)
+    console.log('login => ', e.target.password.value)
+    const request = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    }
+
+    dispatch({
+      type: 'USER/LOGIN',
+      payload: request,
+    })
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -46,7 +63,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={onSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -99,3 +116,5 @@ export default function SignIn() {
     </Container>
   )
 }
+
+export default connect(mapStateToProps)(SignIn)
