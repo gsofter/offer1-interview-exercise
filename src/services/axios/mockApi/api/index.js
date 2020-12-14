@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken'
 import mock from '../mock'
 import buildings from '../../../../homes.json'
-console.log('buildings', buildings)
+const cities = buildings.map((b) => b.property.address.city)
+
 mock.onGet('/api/buildings').reply((request) => {
   // TODO: check authentication
   console.log('/api/buildings request => ', request)
@@ -10,10 +11,12 @@ mock.onGet('/api/buildings').reply((request) => {
 
 mock.onGet('/api/building').reply((request) => {
   // TODO: check authentication
-  console.log('/api/building request => ', request)
   const roomId = request.params.roomId
-  console.log('/api/building request => ', roomId)
   const building = buildings.find((b) => b.id == roomId)
-  console.log('/api/building building => ', building)
   return [200, building]
+})
+
+mock.onGet('/api/cities').reply((request) => {
+  // TODO: check authentication
+  return [200, cities]
 })

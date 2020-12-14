@@ -17,3 +17,12 @@ export async function getBuilding(id) {
     })
     .catch((err) => console.log(err))
 }
+
+export async function getCities(id) {
+  return apiClient
+    .get(`/cities`)
+    .then((response) => {
+      return response.data || []
+    })
+    .catch((err) => console.log(err))
+}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     '& a': {
       textDecoration: 'none',
     },
+    border: '1px solid',
   },
   cardMedia: {
     paddingTop: '56.25%', // 16:9
@@ -79,47 +80,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const BootstrapInput = withStyles((theme) => ({
-  root: {
-    'label + &': {
-      marginTop: theme.spacing(3),
-    },
-  },
-  input: {
-    borderRadius: 4,
-    position: 'relative',
-    backgroundColor: theme.palette.background.paper,
-    border: '1px solid #ced4da',
-    fontSize: 16,
-    padding: '10px 26px 10px 12px',
-    transition: theme.transitions.create(['border-color', 'box-shadow']),
-    // Use the system font instead of the default Roboto font.
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-    '&:focus': {
-      borderRadius: 4,
-      borderColor: '#80bdff',
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-    },
-  },
-}))(InputBase)
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-const cities = ['New York', 'Kualar Lumpur', 'Dallas', 'Moscow', 'San fransisco']
 const bedrooms = [1, 2, 3, 4, 5, 6, 7, 8]
 
-const RoomList = ({ buildings }) => {
+const RoomList = ({ buildings, cities }) => {
   const classes = useStyles()
+  const [filter, setFilter] = useState({
+    city: '',
+    price: { min: '', max: '' },
+    bedrooms: '',
+  })
+
+  const [filteredBuildings, setFilteredBuilding] = useState(buildings)
+  useEffect(() => {
+    filterBuildings()
+  }, [])
+  const onChangeCity = (e, newValue) => {
+    console.log(newValue)
+  }
+  const filterBuildings = useCallback(() => {
+    const filtered = buildings.filter((b) => {
+      let check = true
+      if (filter.city !== '' && filter.city !== null)
+        check = check && b.property.address.city === filter.city
+      if (check && filter.price.min !== '') check = b.price >= filter.price.min
+      if (check && filter.price.max !== '') check = b.price <= filter.price.max
+      if (check && filter.bedrooms !== '') check = b.property.numberBedrooms === filter.bedrooms
+      return check
+    })
+    setFilteredBuilding(filtered)
+  })
+
   return (
     <div className={classes.searchContainer}>
       <Grid item xs={12} sm={3} spacing={3}>
@@ -130,19 +120,10 @@ const RoomList = ({ buildings }) => {
               City
             </Typography>
             <Autocomplete
-              freeSolo
-              id="free-solo-2-demo"
-              disableClearable
+              id="combo-box-demo"
               options={cities}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Search input"
-                  margin="normal"
-                  variant="outlined"
-                  InputProps={{ ...params.InputProps, type: 'search' }}
-                />
-              )}
+              onChange={onChangeCity}
+              renderInput={(params) => <TextField {...params} variant="outlined" />}
             />
             <FormHelperText id="my-helper-text">Select city name.</FormHelperText>
           </FormControl>
@@ -151,8 +132,8 @@ const RoomList = ({ buildings }) => {
               Price
             </Typography>
             <div className={classes.priceControl}>
-              <BootstrapInput />
-              <BootstrapInput />
+              <TextField variant="outlined" type="number" />
+              <TextField variant="outlined" type="number" />
             </div>
             <FormHelperText id="my-helper-text">Select price range.</FormHelperText>
           </FormControl>
@@ -160,13 +141,7 @@ const RoomList = ({ buildings }) => {
             <Typography variant="h6" component="h6" aria-labelledby="bedroom-select">
               Bedroom
             </Typography>
-            <Select
-              labelId="bedroom-select-label"
-              id="bedroom-select"
-              value={3}
-              onChange={(e) => {}}
-              input={<BootstrapInput />}
-            >
+            <Select variant="outlined" value={3} onChange={(e) => {}}>
               {bedrooms.map((roomCnt) => (
                 <MenuItem value={roomCnt}> {roomCnt} - bedrooms</MenuItem>
               ))}
@@ -177,13 +152,12 @@ const RoomList = ({ buildings }) => {
       </Grid>
       <Grid item xs={12} sm={9}>
         <div className={classes.listContainer} maxWidth="lg">
-          {/* End hero unit */}
           <Typography gutterBottom variant="h5" component="h2">
-            Total: {buildings.length} buildings found
+            Total: {filterBuildings.length} buildings found
           </Typography>
 
           <Grid container spacing={4}>
-            {buildings.map((house) => (
+            {filteredBuildings.map((house) => (
               <Grid item key={house.id} xs={12} sm={6} md={4}>
                 <Card className={classes.card}>
                   <CardActionArea>

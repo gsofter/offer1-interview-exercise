@@ -6,6 +6,7 @@ import { colors } from '@material-ui/core'
 const light = purple[700] // #f44336
 const primary = purple[800] // #f44336
 const dark = purple[900] // #f44336
+const main = purple['A100']
 const theme = createMuiTheme({
   type: 'light',
   shadows: ['none'],
@@ -30,7 +31,7 @@ const theme = createMuiTheme({
     },
     text: {
       main: dark,
-      primary: dark,
+      primary: light,
       light: light,
       dark: dark,
     },
