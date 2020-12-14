@@ -34,3 +34,26 @@ mock.onPost('/api/auth/login').reply((request) => {
 
   return [401, error]
 })
+
+mock.onGet('/api/auth/account').reply((request) => {
+  const { AccessToken } = request.headers
+  if (AccessToken) {
+    const { id } = jwt.verify(AccessToken, jwtConfig.secret)
+    const userData = Object.assign(
+      {},
+      users.find((item) => item.id === id),
+    )
+    delete userData.password
+    userData.accessToken = jwt.sign({ id: userData.id }, jwtConfig.secret, {
+      expiresIn: jwtConfig.expiresIn,
+    }) // refresh jwt token
+
+    return [200, userData]
+  }
+
+  return [401]
+})
+
+mock.onGet('/api/auth/logout').reply(() => {
+  return [200]
+})

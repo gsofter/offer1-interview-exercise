@@ -15,6 +15,9 @@ import Offer1Theme from './config/theme'
 import 'bootstrap/dist/css/bootstrap.min.css'
 // mocking api
 import './services/axios/mockApi'
+// for notifications
+import { SnackbarProvider } from 'notistack'
+import sagas from './redux/sagas'
 
 // middlewards
 const history = createBrowserHistory()
@@ -23,13 +26,16 @@ const routeMiddleware = routerMiddleware(history)
 const middlewares = [sagaMiddleware, routeMiddleware]
 
 const store = createStore(reducers(history), composeWithDevTools(applyMiddleware(...middlewares)))
+sagaMiddleware.run(sagas)
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Offer1Theme>
-      <Router history={history} />
-    </Offer1Theme>
-  </Provider>,
+  <SnackbarProvider maxSnack={3}>
+    <Provider store={store}>
+      <Offer1Theme>
+        <Router history={history} />
+      </Offer1Theme>
+    </Provider>
+  </SnackbarProvider>,
   document.getElementById('root'),
 )
 
