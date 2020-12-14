@@ -13,6 +13,8 @@ import InputBase from '@material-ui/core/InputBase'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormHelperText from '@material-ui/core/FormHelperText'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import TextField from '@material-ui/core/TextField'
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -127,17 +129,21 @@ const RoomList = ({ buildings }) => {
             <Typography variant="h6" component="h6" aria-labelledby="city-select">
               City
             </Typography>
-            <Select
-              labelId="city-select-label"
-              id="city-select"
-              value={10}
-              onChange={(e) => {}}
-              input={<BootstrapInput />}
-            >
-              {cities.map((cityName) => (
-                <MenuItem value={cityName}> {cityName}</MenuItem>
-              ))}
-            </Select>
+            <Autocomplete
+              freeSolo
+              id="free-solo-2-demo"
+              disableClearable
+              options={cities}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Search input"
+                  margin="normal"
+                  variant="outlined"
+                  InputProps={{ ...params.InputProps, type: 'search' }}
+                />
+              )}
+            />
             <FormHelperText id="my-helper-text">Select city name.</FormHelperText>
           </FormControl>
           <FormControl className={classes.margin}>
