@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
+import { Container } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   overlay: {
@@ -23,8 +24,10 @@ export default function BuildingImage(props) {
   const { image } = props
 
   return (
-    <Paper className={classes.imageContainer}>
-      <img src={image} alt="asdf" />
-    </Paper>
+    <Container maxWidth="sm">
+      <Paper className={classes.imageContainer}>
+        <img src={image} alt="asdf" />
+      </Paper>
+    </Container>
   )
 }

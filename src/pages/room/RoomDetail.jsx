@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import BuildingImage from '../../components/BuildingImage'
 import Typography from '@material-ui/core/Typography'
-import { PageTitle } from '../../components'
+import { PageTitle, BuildingInfo } from '../../components'
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -23,6 +23,7 @@ export default function RoomDetail({ building, loading = false, ...props }) {
       <Container maxWidth="lg">
         <PageTitle title={building.titleCompany.name} />
         <BuildingImage image={building.property.primaryImageUrl || ''} />
+        <BuildingInfo building={building} />
         {/* <Grid container spacing={4}>
           {featuredPosts.map((post) => (
             <FeaturedPost key={post.title} post={post} />
