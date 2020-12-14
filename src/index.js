@@ -12,6 +12,10 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { Provider } from 'react-redux'
 import Router from './router'
 import Offer1Theme from './config/theme'
+
+// mocking api
+import './services/axios/mockApi'
+
 // middlewards
 const history = createBrowserHistory()
 const sagaMiddleware = createSagaMiddleware()
