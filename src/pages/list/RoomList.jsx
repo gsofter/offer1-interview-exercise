@@ -1,10 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import Button from '@material-ui/core/Button'
-import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
-import CardActionArea from '@material-ui/core/CardActionArea'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
@@ -15,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
+import { BuildingCard } from '../../components'
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -30,21 +25,6 @@ const useStyles = makeStyles((theme) => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
-  },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    '& a': {
-      textDecoration: 'none',
-    },
-    border: '1px solid',
-  },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
@@ -90,25 +70,47 @@ const RoomList = ({ buildings, cities }) => {
     bedrooms: '',
   })
 
-  const [filteredBuildings, setFilteredBuilding] = useState(buildings)
+  const [filteredBuildings, setFilteredBuildings] = useState([])
   useEffect(() => {
     filterBuildings()
-  }, [])
+  }, [buildings, filter])
+
   const onChangeCity = (e, newValue) => {
+    setFilter({ ...filter, city: newValue })
     console.log(newValue)
   }
-  const filterBuildings = useCallback(() => {
+
+  const onChangePrice = (e) => {
+    console.log(e.target.name)
+    setFilter({
+      ...filter,
+      price: {
+        ...filter.price,
+        [e.target.name.split('.')[1]]: e.target.value,
+      },
+    })
+  }
+
+  const filterBuildings = () => {
     const filtered = buildings.filter((b) => {
       let check = true
       if (filter.city !== '' && filter.city !== null)
         check = check && b.property.address.city === filter.city
-      if (check && filter.price.min !== '') check = b.price >= filter.price.min
-      if (check && filter.price.max !== '') check = b.price <= filter.price.max
-      if (check && filter.bedrooms !== '') check = b.property.numberBedrooms === filter.bedrooms
+      if (check && filter.price.min !== '' && filter.price.min !== null)
+        check = b.price >= filter.price.min
+      if (check && filter.price.max !== '' && filter.price.max !== null)
+        check = b.price <= filter.price.max
+      if (check && filter.bedrooms !== '' && filter.bedrooms !== null)
+        check = b.property.numberBedrooms === filter.bedrooms
       return check
     })
-    setFilteredBuilding(filtered)
-  })
+    console.log(filtered)
+    setFilteredBuildings(filtered)
+  }
+
+  const onChangeBedroomCnt = (e) => {
+    setFilter({ ...filter, bedrooms: e.target.value })
+  }
 
   return (
     <div className={classes.searchContainer}>
@@ -132,8 +134,18 @@ const RoomList = ({ buildings, cities }) => {
               Price
             </Typography>
             <div className={classes.priceControl}>
-              <TextField variant="outlined" type="number" />
-              <TextField variant="outlined" type="number" />
+              <TextField
+                variant="outlined"
+                type="number"
+                name="price.min"
+                onChange={onChangePrice}
+              />
+              <TextField
+                variant="outlined"
+                type="number"
+                name="price.max"
+                onChange={onChangePrice}
+              />
             </div>
             <FormHelperText id="my-helper-text">Select price range.</FormHelperText>
           </FormControl>
@@ -141,7 +153,7 @@ const RoomList = ({ buildings, cities }) => {
             <Typography variant="h6" component="h6" aria-labelledby="bedroom-select">
               Bedroom
             </Typography>
-            <Select variant="outlined" value={3} onChange={(e) => {}}>
+            <Select variant="outlined" onChange={onChangeBedroomCnt}>
               {bedrooms.map((roomCnt) => (
                 <MenuItem value={roomCnt}> {roomCnt} - bedrooms</MenuItem>
               ))}
@@ -152,36 +164,14 @@ const RoomList = ({ buildings, cities }) => {
       </Grid>
       <Grid item xs={12} sm={9}>
         <div className={classes.listContainer} maxWidth="lg">
-          <Typography gutterBottom variant="h5" component="h2">
-            Total: {filterBuildings.length} buildings found
+          <Typography gutterBottom variant="h6">
+            Total: {filteredBuildings.length} buildings found
           </Typography>
 
           <Grid container spacing={4}>
             {filteredBuildings.map((house) => (
               <Grid item key={house.id} xs={12} sm={6} md={4}>
-                <Card className={classes.card}>
-                  <CardActionArea>
-                    <CardMedia
-                      className={classes.cardMedia}
-                      image={house.property.primaryImageUrl}
-                      title="Image title"
-                    />
-                    <CardContent className={classes.cardContent}>
-                      <Typography gutterBottom variant="body1" component="h5">
-                        {house.titleCompany.name}
-                      </Typography>
-                      <Typography variant="body2">{house.property.description}</Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions>
-                    <Button size="small" color="primary" href={`/room/${house.id}`}>
-                      View
-                    </Button>
-                    <Button size="small" color="primary">
-                      Share
-                    </Button>
-                  </CardActions>
-                </Card>
+                <BuildingCard building={house} />
               </Grid>
             ))}
           </Grid>

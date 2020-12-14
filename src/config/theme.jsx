@@ -31,9 +31,19 @@ const theme = createMuiTheme({
     },
     text: {
       main: dark,
-      primary: light,
+      primary: dark,
       light: light,
       dark: dark,
+      secondary: 'rgb(0,0,0,.5)',
+    },
+  },
+  typography: {
+    htmlFontSize: 14,
+    button: {
+      fontSize: '0.7em',
+    },
+    h6: {
+      fontSize: '1.1rem',
     },
   },
 })
