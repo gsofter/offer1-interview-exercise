@@ -1,4 +1,7 @@
-import * as jwt from 'services/jwt'
+import * as jwt from './../../services/jwt'
+import actions from './actions'
+import { all, takeEvery, put, call, select } from 'redux-saga/effects'
+import { history } from '../../index'
 
 export function* LOGIN({ payload }) {
   const { email, password } = payload
@@ -8,6 +11,8 @@ export function* LOGIN({ payload }) {
       loading: true,
     },
   })
+  console.log('email => ', email)
+  console.log('password => ', password)
   const success = yield call(jwt.login, email, password)
   if (success) {
     yield put({

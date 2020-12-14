@@ -1,4 +1,4 @@
-import apiClient from 'services/axios'
+import apiClient from './../axios'
 import store from 'store'
 
 export async function login(email, password) {

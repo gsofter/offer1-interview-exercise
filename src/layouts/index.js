@@ -24,7 +24,15 @@ const Layout = ({ user, children, location }) => {
   }
 
   const Container = Layouts[getLayout()]
+  const isUserAuthorized = user.authorized
+  const isUserLoading = user.loading
+  const isAuthLayout = getLayout() === 'auth'
   const BootstrappedLayout = () => {
+    // show loader when user in check authorization process, not authorized yet and not on login pages
+    if (isUserLoading && !isUserAuthorized && !isAuthLayout) {
+      return null
+    }
+
     if (!user.authorized && getLayout() !== 'auth') return <Redirect to="/auth/login" />
     return <Container>{children}</Container>
   }

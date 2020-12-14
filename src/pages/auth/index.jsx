@@ -48,7 +48,7 @@ const SignIn = ({ dispatch }) => {
     }
 
     dispatch({
-      type: 'USER/LOGIN',
+      type: 'user/LOGIN',
       payload: request,
     })
   }

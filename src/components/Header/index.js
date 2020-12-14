@@ -40,8 +40,12 @@ const useStyles = makeStyles((theme) => ({
 const mapStateToProps = (state) => ({ ...state })
 const Header = (props) => {
   const classes = useStyles()
-  console.log('props=> ', props)
-  const { user } = props
+  const { user, dispatch } = props
+  const handleLogout = () => {
+    dispatch({
+      type: 'user/LOGOUT',
+    })
+  }
   return (
     <React.Fragment>
       <CssBaseline />
@@ -55,13 +59,17 @@ const Header = (props) => {
             Offer1 Real Estate
           </Typography>
           {user.authorized ? (
-            <Button href="#" color="primary" variant="outlined" className={classes.link}>
+            <Button
+              href="#"
+              color="primary"
+              variant="outlined"
+              className={classes.link}
+              onClick={handleLogout}
+            >
               Logout
             </Button>
           ) : (
-            <Button href="#" color="primary" variant="outlined" className={classes.link}>
-              Login
-            </Button>
+            ''
           )}
         </Toolbar>
       </AppBar>

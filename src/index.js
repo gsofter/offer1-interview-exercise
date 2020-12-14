@@ -20,7 +20,7 @@ import { SnackbarProvider } from 'notistack'
 import sagas from './redux/sagas'
 
 // middlewards
-const history = createBrowserHistory()
+export const history = createBrowserHistory()
 const sagaMiddleware = createSagaMiddleware()
 const routeMiddleware = routerMiddleware(history)
 const middlewares = [sagaMiddleware, routeMiddleware]
