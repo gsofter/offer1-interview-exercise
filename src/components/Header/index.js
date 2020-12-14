@@ -29,13 +29,12 @@ const Header = ({ ...props }) => {
       <CssBaseline />
       <AppBar position="relative" className={classes.appBar}>
         <Toolbar>
-          <ApartmentIcon className={classes.icon} />
+          <Button href="/" className={classes.homeLink}>
+            <ApartmentIcon className={classes.icon} />{' '}
+          </Button>
           <Typography variant="h6" color="inherit" noWrap>
             {/* TODO: should display Name from contants list */}
-            <Button href="/" className={classes.homeLink}>
-              {' '}
-              Offer1 Real Estate{' '}
-            </Button>
+            Offer1 Real Estate
           </Typography>
         </Toolbar>
       </AppBar>
