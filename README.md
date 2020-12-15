@@ -4,7 +4,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) to give you a quick starting place for the exercise.
 
-Live demo is [here]('https://offer1-adelin.netlify.app/')
+Live demo is [here](https://offer1-adelin.netlify.app/)
 
 ## Exercise Description
 
