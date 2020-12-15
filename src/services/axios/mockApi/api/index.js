@@ -10,7 +10,7 @@ mock.onGet('/api/buildings').reply((request) => {
 mock.onGet('/api/building').reply((request) => {
   // TODO: check authentication
   const roomId = request.params.roomId
-  const building = buildings.find((b) => b.id.toString === roomId)
+  const building = buildings.find((b) => b.id.toString() === roomId)
   return [200, building]
 })
 

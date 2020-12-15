@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
@@ -11,6 +11,7 @@ import PhotoSizeSelectSmallIcon from '@material-ui/icons/PhotoSizeSelectSmall'
 import BathtubIcon from '@material-ui/icons/Bathtub'
 import PhoneInTalkIcon from '@material-ui/icons/PhoneInTalk'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
+import { TwitterButton } from '../../components'
 
 const useStyles = makeStyles((theme) => ({
   rootContainer: {
@@ -51,9 +52,16 @@ const useStyles = makeStyles((theme) => ({
 export default function RoomDetail({ building, loading = false, ...props }) {
   const classes = useStyles()
 
-  if (loading) return <div> Loading ... </div>
+  if (loading || !building) return <div> Loading ... </div>
+  console.log('building => ', building)
 
-  const status = building.state.toLowerCase()
+  const status = building.state?.toLowerCase()
+  const owner = building.property.primaryOwner.user || ''
+  const twitterShareURL = () => {
+    const postContent = `Offer1 Real Estate ${owner.firstName} - ${building.property.address.addressLine1}`
+    return `https://twitter.com/intent/tweet?text=${postContent}`
+  }
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -105,6 +113,17 @@ export default function RoomDetail({ building, loading = false, ...props }) {
                   <MailOutlineIcon />
                 </span>
                 <span> Email: {building.property.primaryOwner.user.email} </span>
+              </div>
+              <div className="info-item">
+                <span className="icon">
+                  <MailOutlineIcon />
+                </span>
+                <span> Email: {building.property.primaryOwner.user.email} </span>
+              </div>
+              <div className="info-item">
+                <span className="icon">
+                  <TwitterButton href={twitterShareURL()} />
+                </span>
               </div>
             </div>
           </div>
