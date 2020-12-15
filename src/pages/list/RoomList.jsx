@@ -14,27 +14,8 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
   },
-  heroContent: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
-  },
-  heroButtons: {
-    marginTop: theme.spacing(4),
-  },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
-  },
-
   searchContainer: {
-    display: 'flex',
-    flexGrow: 1,
     width: '100%',
-    flexDirection: 'row',
     marginBottom: theme.spacing(5),
   },
   searchFilter: {
@@ -57,6 +38,11 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(5),
     paddingLeft: theme.spacing(5),
     paddingRight: theme.spacing(5),
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+    },
   },
 }))
 
@@ -112,70 +98,72 @@ const RoomList = ({ buildings, cities }) => {
 
   return (
     <div className={classes.searchContainer}>
-      <Grid item xs={12} sm={3}>
-        <div className={classes.searchFilter}>
-          {/* TODO: here filtering options go */}
-          <FormControl className={classes.margin}>
-            <Typography variant="h6" component="h6" aria-labelledby="city-select">
-              City
-            </Typography>
-            <Autocomplete
-              id="combo-box-demo"
-              options={cities}
-              onChange={onChangeCity}
-              renderInput={(params) => <TextField {...params} variant="outlined" />}
-            />
-            <FormHelperText id="my-helper-text">Select city name.</FormHelperText>
-          </FormControl>
-          <FormControl className={classes.margin}>
-            <Typography variant="h6" component="h6" aria-labelledby="city-select">
-              Price
-            </Typography>
-            <div className={classes.priceControl}>
-              <TextField
-                variant="outlined"
-                type="number"
-                name="price.min"
-                onChange={onChangePrice}
+      <Grid container>
+        <Grid item xs={12} sm={5} md={3} lg={3}>
+          <div className={classes.searchFilter}>
+            {/* TODO: here filtering options go */}
+            <FormControl className={classes.margin}>
+              <Typography variant="h6" component="h6" aria-labelledby="city-select">
+                City
+              </Typography>
+              <Autocomplete
+                id="combo-box-demo"
+                options={cities}
+                onChange={onChangeCity}
+                renderInput={(params) => <TextField {...params} variant="outlined" />}
               />
-              <TextField
-                variant="outlined"
-                type="number"
-                name="price.max"
-                onChange={onChangePrice}
-              />
-            </div>
-            <FormHelperText id="my-helper-text">Select price range.</FormHelperText>
-          </FormControl>
-          <FormControl className={classes.margin}>
-            <Typography variant="h6" component="h6" aria-labelledby="bedroom-select">
-              Bedroom
+              <FormHelperText id="my-helper-text">Select city name.</FormHelperText>
+            </FormControl>
+            <FormControl className={classes.margin}>
+              <Typography variant="h6" component="h6" aria-labelledby="city-select">
+                Price
+              </Typography>
+              <div className={classes.priceControl}>
+                <TextField
+                  variant="outlined"
+                  type="number"
+                  name="price.min"
+                  onChange={onChangePrice}
+                />
+                <TextField
+                  variant="outlined"
+                  type="number"
+                  name="price.max"
+                  onChange={onChangePrice}
+                />
+              </div>
+              <FormHelperText id="my-helper-text">Select price range.</FormHelperText>
+            </FormControl>
+            <FormControl className={classes.margin}>
+              <Typography variant="h6" component="h6" aria-labelledby="bedroom-select">
+                Bedroom
+              </Typography>
+              <Select variant="outlined" value="" onChange={onChangeBedroomCnt}>
+                {bedrooms.map((roomCnt) => (
+                  <MenuItem value={roomCnt} key={`${roomCnt}-menu-item`}>
+                    {roomCnt} - bedrooms
+                  </MenuItem>
+                ))}
+              </Select>
+              <FormHelperText id="my-helper-text">Select bedroom count.</FormHelperText>
+            </FormControl>
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={7} md={9} lg={9}>
+          <div className={classes.listContainer}>
+            <Typography gutterBottom variant="h6">
+              Total: {filteredBuildings.length} buildings found
             </Typography>
-            <Select variant="outlined" value="" onChange={onChangeBedroomCnt}>
-              {bedrooms.map((roomCnt) => (
-                <MenuItem value={roomCnt} key={`${roomCnt}-menu-item`}>
-                  {roomCnt} - bedrooms
-                </MenuItem>
-              ))}
-            </Select>
-            <FormHelperText id="my-helper-text">Select bedroom count.</FormHelperText>
-          </FormControl>
-        </div>
-      </Grid>
-      <Grid item xs={12} sm={9}>
-        <div className={classes.listContainer}>
-          <Typography gutterBottom variant="h6">
-            Total: {filteredBuildings.length} buildings found
-          </Typography>
 
-          <Grid container spacing={4}>
-            {filteredBuildings.map((house) => (
-              <Grid item key={house.id} xs={12} sm={6} md={4}>
-                <BuildingCard building={house} />
-              </Grid>
-            ))}
-          </Grid>
-        </div>
+            <Grid container spacing={4}>
+              {filteredBuildings.map((house) => (
+                <Grid item key={house.id} xs={12} sm={6} md={4}>
+                  <BuildingCard building={house} />
+                </Grid>
+              ))}
+            </Grid>
+          </div>
+        </Grid>
       </Grid>
     </div>
   )

@@ -29,16 +29,27 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   toolBar: {
+    flexGrow: 1,
     flexWrap: 'wrap',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 
   title: {
     flexGrow: 1,
     color: theme.palette.primary.dark,
     fontWeight: 600,
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
   userAvatar: {
     color: theme.palette.primary.main,
+    [theme.breakpoints.down('sm')]: {
+      '& span.username': {
+        display: 'none',
+      },
+    },
   },
   appMenu: {
     borderColor: theme.palette.grey[300],
@@ -106,7 +117,7 @@ const Header = (props) => {
                 color="inherit"
                 className={classes.userAvatar}
               >
-                {user.name}
+                <span className="username">{user.name}</span>
               </Button>
               <StyledMenu
                 id="menu-appbar"
