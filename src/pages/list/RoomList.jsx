@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import Typography from '@material-ui/core/Typography'
-import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import FormControl from '@material-ui/core/FormControl'
-import InputBase from '@material-ui/core/InputBase'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormHelperText from '@material-ui/core/FormHelperText'
@@ -61,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const bedrooms = [1, 2, 3, 4, 5, 6, 7, 8]
+const bedrooms = ['', 1, 2, 3, 4, 5, 6, 7, 8]
 
 const RoomList = ({ buildings, cities }) => {
   const classes = useStyles()
@@ -72,17 +71,32 @@ const RoomList = ({ buildings, cities }) => {
   })
 
   const [filteredBuildings, setFilteredBuildings] = useState([])
+  // filter buildings with filtering options
+  const filterBuildings = useCallback(() => {
+    const filtered = buildings.filter((b) => {
+      let check = true
+      if (filter.city !== '' && filter.city !== null)
+        check = check && b.property.address.city === filter.city
+      if (check && filter.price.min !== '' && filter.price.min !== null)
+        check = b.price >= filter.price.min
+      if (check && filter.price.max !== '' && filter.price.max !== null)
+        check = b.price <= filter.price.max
+      if (check && filter.bedrooms !== '' && filter.bedrooms !== null && filter.bedrooms !== 0)
+        check = b.property.numberBedrooms === filter.bedrooms
+      return check
+    })
+    setFilteredBuildings(filtered)
+  }, [buildings, filter])
+
   useEffect(() => {
     filterBuildings()
-  }, [buildings, filter])
+  }, [buildings, filter, filterBuildings])
 
   const onChangeCity = (e, newValue) => {
     setFilter({ ...filter, city: newValue })
-    console.log(newValue)
   }
 
   const onChangePrice = (e) => {
-    console.log(e.target.name)
     setFilter({
       ...filter,
       price: {
@@ -92,30 +106,13 @@ const RoomList = ({ buildings, cities }) => {
     })
   }
 
-  const filterBuildings = () => {
-    const filtered = buildings.filter((b) => {
-      let check = true
-      if (filter.city !== '' && filter.city !== null)
-        check = check && b.property.address.city === filter.city
-      if (check && filter.price.min !== '' && filter.price.min !== null)
-        check = b.price >= filter.price.min
-      if (check && filter.price.max !== '' && filter.price.max !== null)
-        check = b.price <= filter.price.max
-      if (check && filter.bedrooms !== '' && filter.bedrooms !== null)
-        check = b.property.numberBedrooms === filter.bedrooms
-      return check
-    })
-    console.log(filtered)
-    setFilteredBuildings(filtered)
-  }
-
   const onChangeBedroomCnt = (e) => {
     setFilter({ ...filter, bedrooms: e.target.value })
   }
 
   return (
     <div className={classes.searchContainer}>
-      <Grid item xs={12} sm={3} spacing={3}>
+      <Grid item xs={12} sm={3}>
         <div className={classes.searchFilter}>
           {/* TODO: here filtering options go */}
           <FormControl className={classes.margin}>
@@ -154,9 +151,11 @@ const RoomList = ({ buildings, cities }) => {
             <Typography variant="h6" component="h6" aria-labelledby="bedroom-select">
               Bedroom
             </Typography>
-            <Select variant="outlined" onChange={onChangeBedroomCnt}>
+            <Select variant="outlined" value="" onChange={onChangeBedroomCnt}>
               {bedrooms.map((roomCnt) => (
-                <MenuItem value={roomCnt}> {roomCnt} - bedrooms</MenuItem>
+                <MenuItem value={roomCnt} key={`${roomCnt}-menu-item`}>
+                  {roomCnt} - bedrooms
+                </MenuItem>
               ))}
             </Select>
             <FormHelperText id="my-helper-text">Select bedroom count.</FormHelperText>
@@ -164,7 +163,7 @@ const RoomList = ({ buildings, cities }) => {
         </div>
       </Grid>
       <Grid item xs={12} sm={9}>
-        <div className={classes.listContainer} maxWidth="lg">
+        <div className={classes.listContainer}>
           <Typography gutterBottom variant="h6">
             Total: {filteredBuildings.length} buildings found
           </Typography>

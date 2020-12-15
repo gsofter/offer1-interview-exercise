@@ -4,9 +4,8 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import BuildingImage from '../../components/BuildingImage'
 import Typography from '@material-ui/core/Typography'
-import Avatar from '@material-ui/core/Avatar'
-import { PageTitle, BuildingInfo } from '../../components'
-import { deepOrange, green } from '@material-ui/core/colors'
+import { BuildingInfo } from '../../components'
+import { deepOrange } from '@material-ui/core/colors'
 import HotelIcon from '@material-ui/icons/Hotel'
 import PhotoSizeSelectSmallIcon from '@material-ui/icons/PhotoSizeSelectSmall'
 import BathtubIcon from '@material-ui/icons/Bathtub'
@@ -58,7 +57,7 @@ export default function RoomDetail({ building, loading = false, ...props }) {
           <div className="col-sm-12 col-md-4">
             <div className={classes.infoContainer}>
               <div className="companyTitle info-item">
-                <Typography variant="h5" color="rgb(255,33,45)">
+                <Typography variant="h5">
                   {/* TODO: building Title */}
                   {building.property.primaryOwner.user.firstName +
                     building.property.primaryOwner.user.lastName}

@@ -35,7 +35,7 @@ const Footer = () => {
   return (
     <React.Fragment>
       <footer className={classes.footer}>
-        <Typography variant="h6" class="title">
+        <Typography variant="h6" className="title">
           Offer1 Real Estate
         </Typography>
         <Typography variant="subtitle1" color="textSecondary" component="p">

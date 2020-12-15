@@ -1,20 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import RoomList from './RoomList'
 import * as api from '../../services/api'
 
 const RoomListWrapper = () => {
   const [buildings, setBuildings] = useState([])
   const [cities, setCities] = useState([])
-  const [loading, setLoading] = useState(false)
-  const fetchBuildings = useCallback(async () => {
+  const fetchBuildings = async () => {
     const res = await api.getAllBuildings()
     setBuildings(res)
-  })
+  }
 
-  const fetchCities = useCallback(async () => {
+  const fetchCities = async () => {
     const res = await api.getCities()
     setCities(res)
-  })
+  }
   useEffect(() => {
     fetchBuildings()
     fetchCities()

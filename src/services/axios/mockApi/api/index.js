@@ -5,7 +5,6 @@ const cities = buildings.map((b) => b.property.address.city)
 
 mock.onGet('/api/buildings').reply((request) => {
   // TODO: check authentication
-  console.log('/api/buildings request => ', request)
   return [200, buildings]
 })
 

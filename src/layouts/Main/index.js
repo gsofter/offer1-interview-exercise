@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Header from '../../components/Header'
@@ -8,8 +8,8 @@ import { makeStyles } from '@material-ui/core'
 const useStyles = makeStyles((theme) => ({
   bodyWrapper: {},
 }))
-const mapStateToProps = ({ state }) => ({})
-const MainLayout = ({ children, ...props }) => {
+const mapStateToProps = ({ state }) => ({ ...state })
+const MainLayout = ({ children }) => {
   const classes = useStyles()
   return (
     <div className="main-layout">

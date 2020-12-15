@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+
+import { createBrowserHistory } from 'history'
+import createSagaMiddleware from 'redux-saga'
+import { routerMiddleware } from 'connected-react-router'
+import { applyMiddleware, createStore } from 'redux'
+import reducers from './redux/reducers'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import { Provider } from 'react-redux'
+import Router from './router'
+import Offer1Theme from './config/theme'
+import 'bootstrap/dist/css/bootstrap.min.css'
+// mocking api
+import './services/axios/mockApi'
+// for notifications
+import { SnackbarProvider } from 'notistack'
+import sagas from './redux/sagas'
+
+// middlewards
+export const history = createBrowserHistory()
+const sagaMiddleware = createSagaMiddleware()
+const routeMiddleware = routerMiddleware(history)
+const middlewares = [sagaMiddleware, routeMiddleware]
+
+const store = createStore(reducers(history), composeWithDevTools(applyMiddleware(...middlewares)))
+sagaMiddleware.run(sagas)
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <SnackbarProvider maxSnack={3}>
+      <Provider store={store}>
+        <Offer1Theme>
+          <Router history={history} />
+        </Offer1Theme>
+      </Provider>
+    </SnackbarProvider>
+  )
 }
 
-export default App;
+export default App

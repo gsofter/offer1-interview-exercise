@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  Card,
-  CardActionArea,
-  Typography,
-  CardContent,
-  Button,
-  CardMedia,
-  CardActions,
-} from '@material-ui/core'
+import { Card, CardActionArea, Typography, CardContent, CardMedia } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
 import LocationCityIcon from '@material-ui/icons/LocationCity'
 import HotelIcon from '@material-ui/icons/Hotel'

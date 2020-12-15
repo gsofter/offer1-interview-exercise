@@ -1,12 +1,10 @@
 import React from 'react'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import purple from '@material-ui/core/colors/purple'
-import cyan from '@material-ui/core/colors/cyan'
 import grey from '@material-ui/core/colors/grey'
 const light = purple[700] // #f44336
 const primary = purple[800] // #f44336
 const dark = purple[900] // #f44336
-const main = purple['A100']
 const theme = createMuiTheme({
   type: 'light',
   shadows: ['none'],

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import RoomDetail from './RoomDetail'
-import { withRouter, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import * as api from '../../services/api'
 
 const RoomDetailWrapper = ({ props }) => {
@@ -10,11 +10,9 @@ const RoomDetailWrapper = ({ props }) => {
     const fetch = async () => {
       const res = await api.getBuilding(roomId)
       setBuilding(res)
-      console.log('res => ', res)
     }
-
     fetch()
-  }, [])
+  }, [roomId])
   return building === null || building === undefined ? '' : <RoomDetail building={building} />
 }
 

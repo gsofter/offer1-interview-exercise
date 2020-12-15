@@ -11,7 +11,6 @@ import { Button } from '@material-ui/core'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import red from '@material-ui/core/colors/cyan'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -51,8 +50,22 @@ const StyledMenu = withStyles({
   paper: {
     border: '1px solid',
   },
-})(Menu)
-const mapStateToProps = (state) => ({ ...state })
+})((props) => (
+  <Menu
+    elevation={1}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'center',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'center',
+    }}
+    {...props}
+  />
+))
+const mapStateToProps = (state) => ({ user: state.user, dispatch: state.dispatch })
 const Header = (props) => {
   const classes = useStyles()
   const { user, dispatch } = props

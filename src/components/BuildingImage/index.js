@@ -24,8 +24,8 @@ export default function BuildingImage(props) {
   const { image } = props
 
   return (
-    <Container maxWidth="sm">
-      <Paper className={classes.imageContainer}>
+    <Container maxWidth="sm" className={classes.imageContainer}>
+      <Paper>
         <img src={image} alt="asdf" />
       </Paper>
     </Container>

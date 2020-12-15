@@ -2,9 +2,7 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
-import { Divider } from '@material-ui/core'
 import * as utils from '../../services/utils'
-import { Info } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   sidebarAboutBox: {
@@ -112,8 +110,10 @@ export const InfoRow = ({ data, border = true }) => {
       </div>
       <div className="col-md-4 col-sm-12 pull-left">
         <div className="buildinfo_info">
-          {infos.map((subInfo) => (
-            <Typography variant="caption">{subInfo}</Typography>
+          {infos.map((subInfo, index) => (
+            <Typography variant="caption" key={index}>
+              {subInfo}
+            </Typography>
           ))}
         </div>
       </div>
@@ -135,28 +135,6 @@ export const BuildingInfo = ({ building }) => {
     {
       label: 'State',
       info: building.property.address.state,
-    },
-  ]
-  const propertyInfos = [
-    {
-      label: 'propertyType',
-      info: building.property.propertyType,
-    },
-    {
-      label: 'squareFeet',
-      info: building.property.squareFeet,
-    },
-    {
-      label: 'numberBedrooms',
-      info: building.property.numberBedrooms,
-    },
-    {
-      label: 'numberBaths',
-      info: building.property.numberBaths,
-    },
-    {
-      label: 'description',
-      info: building.property.description,
     },
   ]
   const ownerInfos = [
@@ -188,7 +166,7 @@ export const BuildingInfo = ({ building }) => {
   const titleCompanyInfos = Object.keys(building.titleCompany)
     .filter((key) => key !== 'id')
     .map((key) => ({ label: utils.splitCamelCaseToString(key), info: escrow[key] }))
-  console.log(titleCompanyInfos)
+
   return (
     <div className={classes.rootContainer}>
       <Grid item xs={12} md={8} className={classes.sectionsContainer}>
@@ -200,8 +178,8 @@ export const BuildingInfo = ({ building }) => {
             </Typography>
           </div>
           <div className="info col-sm-12 col-md-8">
-            {escrowCompanyInfos.map((info) => (
-              <InfoRow data={info} border={false} />
+            {escrowCompanyInfos.map((info, index) => (
+              <InfoRow data={info} border={false} key={index} />
             ))}
           </div>
         </div>
@@ -212,8 +190,8 @@ export const BuildingInfo = ({ building }) => {
             </Typography>
           </div>
           <div className="info col-sm-12 col-md-8">
-            {titleCompanyInfos.map((info) => (
-              <InfoRow data={info} border={false} />
+            {titleCompanyInfos.map((info, index) => (
+              <InfoRow data={info} border={false} key={index} />
             ))}
           </div>
         </div>
@@ -224,16 +202,16 @@ export const BuildingInfo = ({ building }) => {
           <Typography variant="h6" className="title">
             Address
           </Typography>
-          {addressInfos.map((info) => (
-            <InfoRow data={info} />
+          {addressInfos.map((info, index) => (
+            <InfoRow data={info} key={index} />
           ))}
         </div>
         <div className={classes.infoPanel}>
           <Typography variant="h6" className="title">
             Owner
           </Typography>
-          {ownerInfos.map((info) => (
-            <InfoRow data={info} />
+          {ownerInfos.map((info, index) => (
+            <InfoRow data={info} key={index} />
           ))}
         </div>
       </Grid>

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet'
 import PublicLayout from './Public'
@@ -13,9 +13,9 @@ const Layouts = {
 }
 const mapStateToProps = ({ ...state }) => ({ ...state })
 const Layout = ({ user, children, location }) => {
-  const { pathname, search } = location
-
   const getLayout = () => {
+    // TODO: check authentication
+    // return proper layout
     return 'main'
   }
 
