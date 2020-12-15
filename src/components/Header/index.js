@@ -89,7 +89,7 @@ const Header = (props) => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="relative" className={classes.appBar}>
+      <AppBar position="relative" className={classes.appBar} elevation={1}>
         <Toolbar className={classes.toolBar}>
           <Button href="/" className={classes.homeLink}>
             <ApartmentIcon className={classes.icon} />{' '}
@@ -110,6 +110,7 @@ const Header = (props) => {
               </Button>
               <StyledMenu
                 id="menu-appbar"
+                elevation={1}
                 anchorEl={anchorEl}
                 anchorOrigin={{
                   vertical: 'top',
@@ -123,6 +124,7 @@ const Header = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
                 className={classes.appMenu}
+                elevation={1}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleLogout}>LogOut</MenuItem>

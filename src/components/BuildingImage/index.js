@@ -25,7 +25,7 @@ export default function BuildingImage(props) {
 
   return (
     <Container maxWidth="sm" className={classes.imageContainer}>
-      <Paper>
+      <Paper elevation={0}>
         <img src={image} alt="asdf" />
       </Paper>
     </Container>
