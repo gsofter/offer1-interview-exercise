@@ -135,20 +135,13 @@ const Header = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
                 className={classes.appMenu}
-                elevation={1}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleLogout}>LogOut</MenuItem>
               </StyledMenu>
             </div>
           ) : (
-            <Button
-              href="#"
-              color="primary"
-              variant="outlined"
-              className={classes.link}
-              href="/auth/login"
-            >
+            <Button color="primary" variant="outlined" className={classes.link} href="/auth/login">
               Login
             </Button>
           )}
