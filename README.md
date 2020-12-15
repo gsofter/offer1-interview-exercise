@@ -1,13 +1,14 @@
 # Offer1 Interview Exercise
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) to give you a quick starting place for the exercise.
+[![Netlify Status](https://api.netlify.com/api/v1/badges/282d39f3-6179-44c5-872c-fdfb64e7391e/deploy-status)](https://app.netlify.com/sites/offer1-adelin/deploys)
 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) to give you a quick starting place for the exercise.
 
 ## Exercise Description
 
 Image that you have been hired to create a new Real Estate application to help consumers purchase a home. Your new company is up against the a tight timeline and needs to deliver a minimum viable product (mvp) ASAP! In order to compete in the market place your MVP should provide the following core functionality:
 
-- View/browse all available homes 
+- View/browse all available homes
 - Filter homes by City, Price, Number of Bedrooms
 - Show detailed view for a selected home
 
@@ -16,7 +17,6 @@ However, if you really want to win over customers the following nice to haves wo
 - Sign-in Page
 - Ability to share a home on social media
 - Send a message to the seller's agent
-
 
 ## Solution Details
 
@@ -32,7 +32,6 @@ A sample [data set](./src/homes.json) representing properties has been included 
 
 As each solution is reviewed there will be an emphasis on the use of ReactJS best practices, design patterns, use of standard packages, use of ES6.
 
-
 ## Submitting the Exercise
 
 1. Ensure that the scripts below (npm start/test/build) are all working for your solution. They should all run successfully.
@@ -40,7 +39,6 @@ As each solution is reviewed there will be an emphasis on the use of ReactJS bes
 2. Please make sure the repo is public. If you prefer to keep your repo private, then ensure you have granted read access to [tonyhernandez](https://github.com/tonyhernandez) and [mapayares](https://github.com/mapayares).
 
 3. Completed the Google Form [here](https://forms.gle/We7VGi73apbECGKL6) once you are done with the code. Once submitted do not make any further changes to the code!
-
 
 ## Available Scripts
 
