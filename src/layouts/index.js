@@ -16,10 +16,6 @@ const Layout = ({ user, children, location }) => {
   const { pathname, search } = location
 
   const getLayout = () => {
-    // TODO: check authentication
-    if (/^\/auth(?=\/|$)/i.test(pathname)) {
-      return 'auth'
-    }
     return 'main'
   }
 
@@ -33,7 +29,6 @@ const Layout = ({ user, children, location }) => {
       return null
     }
 
-    if (!user.authorized && getLayout() !== 'auth') return <Redirect to="/auth/login" />
     return <Container>{children}</Container>
   }
   return (
