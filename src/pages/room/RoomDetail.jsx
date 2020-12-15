@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
@@ -47,18 +47,21 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(2),
     },
   },
+
+  twitter: {
+    color: theme.palette.primary.main,
+  },
 }))
 
 export default function RoomDetail({ building, loading = false, ...props }) {
   const classes = useStyles()
 
   if (loading || !building) return <div> Loading ... </div>
-  console.log('building => ', building)
 
   const status = building.state?.toLowerCase()
   const owner = building.property.primaryOwner.user || ''
   const twitterShareURL = () => {
-    const postContent = `Offer1 Real Estate ${owner.firstName} - ${building.property.address.addressLine1}`
+    const postContent = `Offer1 Real Estate ${owner.firstName} - ${building.property.address.addressLine1} ${building.property.description}`
     return `https://twitter.com/intent/tweet?text=${postContent}`
   }
 
@@ -116,13 +119,7 @@ export default function RoomDetail({ building, loading = false, ...props }) {
               </div>
               <div className="info-item">
                 <span className="icon">
-                  <MailOutlineIcon />
-                </span>
-                <span> Email: {building.property.primaryOwner.user.email} </span>
-              </div>
-              <div className="info-item">
-                <span className="icon">
-                  <TwitterButton href={twitterShareURL()} />
+                  <TwitterButton href={twitterShareURL()} className={classes.twitter} />
                 </span>
               </div>
             </div>
