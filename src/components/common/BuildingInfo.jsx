@@ -20,6 +20,11 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionsContainer: {
     padding: theme.spacing(5),
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: theme.spacing(2),
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+    },
   },
   sectionPanel: {
     paddingTop: theme.spacing(7),
@@ -27,7 +32,14 @@ const useStyles = makeStyles((theme) => ({
     borderTop: '1px solid rgba(0,0,0,.1)',
     display: 'flex',
     flexDirection: 'row',
-    '& .title': {},
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      paddingLeft: theme.spacing(2),
+      '& .title': {
+        marginBottom: theme.spacing(2),
+      },
+    },
   },
   commonInfoContainer: {
     // padding: theme.spacing(2),
@@ -68,47 +80,33 @@ const useStyles = makeStyles((theme) => ({
 
 export const InfoRow = ({ data, border = true }) => {
   const classes = useStyles()
-  if (!data.info || data.info === undefined || data.info === '') {
+  const infoRowClassName = border ? classes.infoRow : classes.infoRowNoBorder
+  if (typeof data.info === 'string' || !data.info || data.info === undefined || data.info === '')
     return (
-      <div className={border ? classes.infoRow : classes.infoRowNoBorder}>
-        <div className="col-md-4 col-sm-12">
+      <Grid container className={infoRowClassName}>
+        <Grid item xs={6} sm={6} md={4}>
           <Typography variant="body2" className="buildinfo_label">
             {data.label}
           </Typography>
-        </div>
-        <div className="col-md-8 col-sm-12">
-          <Typography variant="caption" className="buildinfo_info"></Typography>
-        </div>
-      </div>
-    )
-  }
-
-  if (typeof data.info === 'string')
-    return (
-      <div className={border ? classes.infoRow : classes.infoRowNoBorder}>
-        <div className="col-md-4 col-sm-12 pull-left">
-          <Typography variant="body2" className="buildinfo_label">
-            {data.label}
-          </Typography>
-        </div>
-        <div className="col-md-8 col-sm-12 pull-left">
+        </Grid>
+        <Grid item xs={6} sm={6} md={8}>
           <Typography variant="caption" className="buildinfo_info">
-            {data.info}
+            {data.info ?? ''}
           </Typography>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     )
   const infos = Object.keys(data.info)
     .filter((key) => key !== 'id')
     .map((key) => data.info[key])
   return (
-    <div className={border ? classes.infoRow : classes.infoRowNoBorder}>
-      <div className="col-md-4 col-sm-12 pull-left">
+    <Grid container className={infoRowClassName}>
+      <Grid item xs={6} sm={6} md={4}>
         <Typography variant="body2" className="buildinfo_label pull-left">
           {data.label}
         </Typography>
-      </div>
-      <div className="col-md-4 col-sm-12 pull-left">
+      </Grid>
+      <Grid item xs={6} sm={6} md={8}>
         <div className="buildinfo_info">
           {infos.map((subInfo, index) => (
             <Typography variant="caption" key={index}>
@@ -116,8 +114,8 @@ export const InfoRow = ({ data, border = true }) => {
             </Typography>
           ))}
         </div>
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   )
 }
 
@@ -168,33 +166,33 @@ export const BuildingInfo = ({ building }) => {
     .map((key) => ({ label: utils.splitCamelCaseToString(key), info: escrow[key] }))
 
   return (
-    <div className={classes.rootContainer}>
+    <Grid container className={classes.rootContainer}>
       <Grid item xs={12} md={8} className={classes.sectionsContainer}>
         {/* TODO: here goes sections container */}
-        <div className={classes.sectionPanel}>
-          <div className="col-sm-12 col-md-4">
+        <Grid container className={classes.sectionPanel}>
+          <Grid item xs={12} sm={12} md={6} lg={4}>
             <Typography className="title" variant="h5">
               Escrow Company
             </Typography>
-          </div>
-          <div className="info col-sm-12 col-md-8">
+          </Grid>
+          <Grid item xs={12} sm={12} md={6} lg={8}>
             {escrowCompanyInfos.map((info, index) => (
               <InfoRow data={info} border={false} key={index} />
             ))}
-          </div>
-        </div>
-        <div className={classes.sectionPanel}>
-          <div className="col-sm-12 col-md-4">
+          </Grid>
+        </Grid>
+        <Grid container className={classes.sectionPanel}>
+          <Grid item xs={12} sm={12} md={6} lg={4}>
             <Typography className="title" variant="h5">
               Title Company
             </Typography>
-          </div>
-          <div className="info col-sm-12 col-md-8">
+          </Grid>
+          <Grid item xs={12} sm={12} md={6} lg={8}>
             {titleCompanyInfos.map((info, index) => (
               <InfoRow data={info} border={false} key={index} />
             ))}
-          </div>
-        </div>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item xs={12} md={4} className={classes.commonInfoContainer}>
         {/* TODO: here goes common info */}
@@ -215,6 +213,6 @@ export const BuildingInfo = ({ building }) => {
           ))}
         </div>
       </Grid>
-    </div>
+    </Grid>
   )
 }

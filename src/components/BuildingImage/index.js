@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme) => ({
     '& img': {
       width: '100%',
     },
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: '0px',
+      paddingRight: '0px',
+    },
   },
 }))
 

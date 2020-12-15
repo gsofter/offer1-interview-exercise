@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     '& p': {
       color: theme.palette.secondary.light,
     },
-    marginTop: theme.spacing(10),
+    // marginTop: theme.spacing(10),
   },
 }))
 

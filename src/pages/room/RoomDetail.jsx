@@ -15,6 +15,9 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline'
 const useStyles = makeStyles((theme) => ({
   rootContainer: {
     marginTop: theme.spacing(5),
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing(1),
+    },
   },
   buildingHeader: {},
   square: {
@@ -36,6 +39,11 @@ const useStyles = makeStyles((theme) => ({
   infoContainer: {
     '& .info-item': {
       marginBottom: '0.7em',
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: theme.spacing(1),
+      marginTop: theme.spacing(2),
     },
   },
 }))
@@ -101,7 +109,9 @@ export default function RoomDetail({ building, loading = false, ...props }) {
             </div>
           </div>
         </div>
-        <BuildingInfo building={building} />
+        <div className="row">
+          <BuildingInfo building={building} />
+        </div>
       </Container>
     </React.Fragment>
   )
