@@ -1,6 +1,6 @@
 import './App.css'
 
-import { createBrowserHistory } from 'history'
+import { createHashHistory } from 'history'
 import createSagaMiddleware from 'redux-saga'
 import { routerMiddleware } from 'connected-react-router'
 import { applyMiddleware, createStore } from 'redux'
@@ -17,7 +17,7 @@ import { SnackbarProvider } from 'notistack'
 import sagas from './redux/sagas'
 
 // middlewards
-export const history = createBrowserHistory()
+export const history = createHashHistory()
 const sagaMiddleware = createSagaMiddleware()
 const routeMiddleware = routerMiddleware(history)
 const middlewares = [sagaMiddleware, routeMiddleware]

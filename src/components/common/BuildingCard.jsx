@@ -30,7 +30,7 @@ export const BuildingCard = ({ building }) => {
   const classes = useStyles()
   return (
     <Card className={classes.card} elevation={0}>
-      <CardActionArea href={`/room/${building.id}`}>
+      <CardActionArea href={`#/room/${building.id}`}>
         <CardMedia
           className={classes.cardMedia}
           image={building.property.primaryImageUrl}

@@ -17,7 +17,6 @@ export function* LOGIN({ payload }) {
       type: 'user/LOAD_CURRENT_ACCOUNT',
     })
     yield history.push('/')
-    alert('success')
   }
   if (!success) {
     yield put({

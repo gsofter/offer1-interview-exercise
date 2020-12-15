@@ -141,7 +141,7 @@ const Header = (props) => {
               </StyledMenu>
             </div>
           ) : (
-            <Button color="primary" variant="outlined" className={classes.link} href="/auth/login">
+            <Button color="primary" variant="outlined" className={classes.link} href="#/auth/login">
               Login
             </Button>
           )}

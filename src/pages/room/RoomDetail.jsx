@@ -11,7 +11,8 @@ import PhotoSizeSelectSmallIcon from '@material-ui/icons/PhotoSizeSelectSmall'
 import BathtubIcon from '@material-ui/icons/Bathtub'
 import PhoneInTalkIcon from '@material-ui/icons/PhoneInTalk'
 import MailOutlineIcon from '@material-ui/icons/MailOutline'
-import { TwitterButton } from '../../components'
+import { TwitterButton, FacebookButton } from '../../components'
+import { Divider } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   rootContainer: {
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     '& .pending': {
       backgroundColor: '#8b8b07',
       color: 'white',
+      padding: theme.spacing(1),
     },
     '& .active': {
       backgroundColor: 'green',
@@ -117,9 +119,15 @@ export default function RoomDetail({ building, loading = false, ...props }) {
                 </span>
                 <span> Email: {building.property.primaryOwner.user.email} </span>
               </div>
+              <Divider />
               <div className="info-item">
                 <span className="icon">
-                  <TwitterButton href={twitterShareURL()} className={classes.twitter} />
+                  <TwitterButton
+                    href={twitterShareURL()}
+                    className={classes.twitter}
+                    size="small"
+                  />
+                  <FacebookButton className={classes.twitter} size="small" />
                 </span>
               </div>
             </div>
